@@ -1,13 +1,13 @@
 import pygame
 
-class Ship:
+class Dobie:
 
     def __init__(self, screen):
-        """Initialize the ship and set it's starting position."""
+        """Initialize the new image I got"""
         self.screen = screen
 
-        # Load the ship image and get its rect.
-        self.image = pygame.image.load('images/ship.bmp')
+        # Load the dobie and get its rect.
+        self.image = pygame.image.load('images/dobietransparent.png')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 
@@ -16,6 +16,5 @@ class Ship:
         self.rect.bottom = self.screen_rect.bottom
 
     def blitme(self):
-        """Draw the ship at its current location."""
+        """Draw the ship at its current location"""
         self.screen.blit(self.image, self.rect)
-
