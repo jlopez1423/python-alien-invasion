@@ -15,7 +15,7 @@ def run_game():
 
     # Make a ship
     # ship = Ship(screen)
-    dobie = Dobie(screen)
+    dobie = Dobie(ai_settings, screen)
 
     # Start the main loop for the game.
     while True:
