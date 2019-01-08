@@ -17,14 +17,11 @@ def run_game():
     # ship = Ship(screen)
     dobie = Dobie(screen)
 
-    # Set background color.
-    # bg_color = (230, 230, 230)
-    # bg_color = (30, 144, 255)
-
     # Start the main loop for the game.
     while True:
         # Watch for keyboard and mouse events.
-        gf.check_events()
+        gf.check_events(dobie)
+        dobie.update()
         gf.update_screen(ai_settings, screen, dobie)
 
 
