@@ -2,6 +2,7 @@ import pygame
 import game_functions as gf
 from pygame.sprite import Group
 from settings import Settings
+from squirrel import Squirrel
 from ship import Ship
 from dobie import Dobie
 
@@ -18,6 +19,8 @@ def run_game():
     dobie = Dobie(ai_settings, screen)
     # Make a group to store bullets in.
     bullets = Group()
+    squirrel = Squirrel(ai_settings, screen)
+
 
     # Start the main loop for the game.
     while True:
@@ -25,7 +28,6 @@ def run_game():
         gf.check_events(ai_settings, screen, dobie, bullets)
         dobie.update()
         gf.update_bullets(bullets)
-        gf.update_screen(ai_settings, screen, dobie, bullets)
-
+        gf.update_screen(ai_settings, screen, dobie, squirrel, bullets)
 
 run_game()

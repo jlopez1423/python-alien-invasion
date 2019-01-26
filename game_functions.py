@@ -21,6 +21,8 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
         ship.moving_left = True
     elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings, screen, ship, bullets)
+    elif event.key == pygame.K_q:
+        sys.exit()
 
 
 def check_keyup_events(event, ship):
@@ -30,13 +32,15 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def update_screen(ai_settings, screen, ship, bullets):
+def update_screen(ai_settings, screen, ship, squirrel, bullets):
     # Redraw the screen during each pass through the loop.
     screen.fill(ai_settings.bg_color)
     # Redraw the bullets behind ship and aliens.
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     ship.blitme()
+    squirrel.blitme()
+
 
     # Make the most recently drawn screen visible.
     pygame.display.flip()
