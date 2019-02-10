@@ -9,7 +9,7 @@ class Dobie:
 
         # Load the dobie and get its rect.
         self.image = pygame.image.load('images/dobietransparent.png')
-        self.image = pygame.transform.scale(self.image, (80, 80))
+        self.image = pygame.transform.scale(self.image, (50, 50))
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 

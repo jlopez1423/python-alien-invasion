@@ -13,6 +13,7 @@ class Squirrel(Sprite):
 
         # Load the squirrel image and se its rect attribute.
         self.image = pygame.image.load('images/squirrel.jpg')
+        self.image = pygame.transform.scale(self.image, (60, 60))
         self.rect = self.image.get_rect()
 
         # Start each new squirrel near the top left of the screen.
