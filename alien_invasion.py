@@ -23,7 +23,7 @@ def run_game():
     # squirrel = Squirrel(ai_settings, screen)
 
     #Create a fleet of squirrels
-    gf.create_fleet(ai_settings, screen, squirrels)
+    gf.create_fleet(ai_settings, screen, dobie, squirrels)
 
 
     # Start the main loop for the game.

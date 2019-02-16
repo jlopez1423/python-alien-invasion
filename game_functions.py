@@ -63,18 +63,20 @@ def fire_bullet(ai_settings, screen, ship, bullets):
         bullets.add(new_bullet)
 
 
-def create_fleet(ai_settings, screen, squirrels):
+def create_fleet(ai_settings, screen, dobie,squirrels):
     """Create a full fleet of squirrels"""
     # Create a squirrel and find the number of suirrels in a row.
     # Spacing between each squirel is equal to one squirrel width
     squirrel = Squirrel(ai_settings, screen)
     squirrel_width = squirrel.rect.width
     number_squirrels_x = get_number_squirrels_x(ai_settings, squirrel.rect.width)
+    number_rows = get_number_rows(ai_settings, dobie.rect.height, squirrel.rect.height)
 
     # create the first row of squirrels
-    for squirrel_number in range(number_squirrels_x):
-        # Create an squirrel and place it in the row.
-        create_squirrel(ai_settings, screen, squirrels, squirrel_number)
+    for row_number in range(number_rows):
+        for squirrel_number in range(number_squirrels_x):
+            # Create an squirrel and place it in the row.
+            create_squirrel(ai_settings, screen, squirrels, squirrel_number, row_number)
 
 
 def get_number_squirrels_x(ai_settings, squirrel_width):
@@ -84,10 +86,19 @@ def get_number_squirrels_x(ai_settings, squirrel_width):
     return number_squirrels_x
 
 
-def create_squirrel(ai_settings, screen, squirrels, squirrel_number):
+def create_squirrel(ai_settings, screen, squirrels, squirrel_number, row_number):
     """Create a squirrel and place it in the row."""
     squirrel = Squirrel(ai_settings, screen)
     squirrel_width = squirrel.rect.width
     squirrel.x = squirrel_width + 2 * squirrel_width * squirrel_number
     squirrel.rect.x = squirrel.x
+    squirrel.rect.y = squirrel.rect.height + 2 * squirrel.rect.height * row_number
     squirrels.add(squirrel)
+
+
+def get_number_rows(ai_settings, ship_height, squirrel_height):
+    """Determine the number of rows of aliens that fit on the screen."""
+    available_space_y = (ai_settings.screen_height -
+                         (3 * squirrel_height) - ship_height)
+    number_rows = int(available_space_y / (2 * squirrel_height))
+    return number_rows
