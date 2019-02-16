@@ -62,19 +62,32 @@ def fire_bullet(ai_settings, screen, ship, bullets):
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
 
+
 def create_fleet(ai_settings, screen, squirrels):
     """Create a full fleet of squirrels"""
     # Create a squirrel and find the number of suirrels in a row.
     # Spacing between each squirel is equal to one squirrel width
     squirrel = Squirrel(ai_settings, screen)
     squirrel_width = squirrel.rect.width
-    available_space_x = ai_settings.screen_width - 2 * squirrel_width
-    number_squirrels_x = int(available_space_x / (2 * squirrel_width))
+    number_squirrels_x = get_number_squirrels_x(ai_settings, squirrel.rect.width)
 
     # create the first row of squirrels
     for squirrel_number in range(number_squirrels_x):
         # Create an squirrel and place it in the row.
-        squirrel = Squirrel(ai_settings, screen)
-        squirrel.x = squirrel_width + 2 * squirrel_width * squirrel_number
-        squirrel.rect.x = squirrel.x
-        squirrels.add(squirrel)
+        create_squirrel(ai_settings, screen, squirrels, squirrel_number)
+
+
+def get_number_squirrels_x(ai_settings, squirrel_width):
+    """Determine the number of squirrels that fit in a row."""
+    available_space_x = ai_settings.screen_width - 2 * squirrel_width
+    number_squirrels_x = int(available_space_x / (2 * squirrel_width))
+    return number_squirrels_x
+
+
+def create_squirrel(ai_settings, screen, squirrels, squirrel_number):
+    """Create a squirrel and place it in the row."""
+    squirrel = Squirrel(ai_settings, screen)
+    squirrel_width = squirrel.rect.width
+    squirrel.x = squirrel_width + 2 * squirrel_width * squirrel_number
+    squirrel.rect.x = squirrel.x
+    squirrels.add(squirrel)
