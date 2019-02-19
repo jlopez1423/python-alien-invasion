@@ -102,3 +102,8 @@ def get_number_rows(ai_settings, ship_height, squirrel_height):
                          (3 * squirrel_height) - ship_height)
     number_rows = int(available_space_y / (2 * squirrel_height))
     return number_rows
+
+
+def update_squirrels(squirrels):
+    """Update the positions of all the squirrels in the fleet."""
+    squirrels.update()

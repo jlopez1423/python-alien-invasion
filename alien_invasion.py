@@ -32,6 +32,7 @@ def run_game():
         gf.check_events(ai_settings, screen, dobie, bullets)
         dobie.update()
         gf.update_bullets(bullets)
+        gf.update_squirrels(squirrels)
         gf.update_screen(ai_settings, screen, dobie, squirrels, bullets)
 
 run_game()
