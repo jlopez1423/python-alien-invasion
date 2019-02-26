@@ -104,6 +104,22 @@ def get_number_rows(ai_settings, ship_height, squirrel_height):
     return number_rows
 
 
-def update_squirrels(squirrels):
+def update_squirrels(ai_settings, squirrels):
     """Update the positions of all the squirrels in the fleet."""
+    """Check if the fleet is at an edge then update the positions of all squirrels in fleet"""
+    check_fleet_edges(ai_settings, squirrels)
     squirrels.update()
+
+def check_fleet_edges(ai_settings, squirrels):
+    """respond appropriately if any aliens have reached an edge."""
+    for squirrel in squirrels.sprites():
+        if squirrel.check_edges():
+            change_fleet_direction(ai_settings, squirrels)
+            break
+
+def change_fleet_direction(ai_settings, squirrels):
+    """Drop the entire fleet and change the fleets direction"""
+    for squirrel in squirrels.sprites():
+        squirrel.rect.y += ai_settings.fleet_drop_speed
+    ai_settings.fleet_direction *= -1
+

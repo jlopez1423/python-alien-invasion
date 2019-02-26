@@ -29,9 +29,8 @@ class Squirrel(Sprite):
 
     def update(self):
         """Move the squirrel to the right"""
-        self.x += self.ai_settings.squirrel_speed_factor * self.ai_settings.fleet_direction
+        self.x += (self.ai_settings.squirrel_speed_factor * self.ai_settings.fleet_direction)
         self.rect.x = self.x
-
 
     def check_edges(self):
         screen_rect = self.screen.get_rect()
