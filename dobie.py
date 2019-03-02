@@ -37,3 +37,7 @@ class Dobie:
 
         # Update the rect object from self.center.
         self.rect.centerx = self.center
+
+    def center_dobie(self):
+        """Center the dobie on the screen"""
+        self.center = self.screen_rect.centerx

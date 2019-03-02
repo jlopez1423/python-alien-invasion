@@ -5,6 +5,7 @@ from settings import Settings
 from squirrel import Squirrel
 from ship import Ship
 from dobie import Dobie
+from game_stats import GameStats
 
 def run_game():
     # Initialize game, settings and create a screen object.
@@ -22,9 +23,11 @@ def run_game():
     squirrels = Group()
     # squirrel = Squirrel(ai_settings, screen)
 
-    #Create a fleet of squirrels
+    # Create a fleet of squirrels
     gf.create_fleet(ai_settings, screen, dobie, squirrels)
 
+    # Create an instance to store game stats
+    stats = GameStats(ai_settings)
 
     # Start the main loop for the game.
     while True:
@@ -32,7 +35,7 @@ def run_game():
         gf.check_events(ai_settings, screen, dobie, bullets)
         dobie.update()
         gf.update_bullets(ai_settings, screen, dobie, squirrels, bullets)
-        gf.update_squirrels(ai_settings, squirrels)
+        gf.update_squirrels(ai_settings, stats, screen, dobie, squirrels, bullets)
         gf.update_screen(ai_settings, screen, dobie, squirrels, bullets)
 
 run_game()

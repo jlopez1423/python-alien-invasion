@@ -2,6 +2,27 @@ import sys
 import pygame
 from bullet import Bullet
 from squirrel import Squirrel
+from time import sleep
+
+
+def ship_hit(ai_settings, stats, screen, dobie, squirrels, bullets):
+    """Respond to ship being hit by alien."""
+    if stats.ships_left > 0:
+        # Decrement ships_left
+        stats.ships_left -= 1
+
+        # Empty the list of aliens and bullets
+        squirrels.empty()
+        bullets.empty()
+
+        # Create a new fleet and center the ship.
+        create_fleet(ai_settings, screen, dobie, squirrels)
+        dobie.center_dobie()
+
+        # Pause
+        sleep(0.5)
+    else:
+        stats.game_active = False
 
 def check_events(ai_settings, screen, ship, bullets):
     """Respond to keypresses and mouse events."""
@@ -117,11 +138,18 @@ def get_number_rows(ai_settings, ship_height, squirrel_height):
     return number_rows
 
 
-def update_squirrels(ai_settings, squirrels):
+def update_squirrels(ai_settings, stats, screen, dobie, squirrels, bullets):
     """Update the positions of all the squirrels in the fleet."""
     """Check if the fleet is at an edge then update the positions of all squirrels in fleet"""
     check_fleet_edges(ai_settings, squirrels)
     squirrels.update()
+
+    # Look for alien-ship collisions
+    if pygame.sprite.spritecollideany(dobie, squirrels):
+        ship_hit(ai_settings, stats, screen, dobie, squirrels, bullets)
+    # Look for squirrels hitting the bottom of the screen
+    check_aliens_bottom(ai_settings, stats, screen, dobie, squirrels, bullets)
+
 
 def check_fleet_edges(ai_settings, squirrels):
     """respond appropriately if any aliens have reached an edge."""
@@ -136,3 +164,12 @@ def change_fleet_direction(ai_settings, squirrels):
         squirrel.rect.y += ai_settings.fleet_drop_speed
     ai_settings.fleet_direction *= -1
 
+
+def check_aliens_bottom(ai_settings, stats, screen, dobie, squirells, bullets):
+    """Check if any squirrels have reached the bottom of the screen."""
+    screen_rect = screen.get_rect()
+    for squirrel in squirells.sprites():
+        if squirrel.rect.bottom >= screen_rect.bottom:
+            # Treat this the same as if the ship got hit
+            ship_hit(ai_settings, stats, screen, dobie, squirells, bullets)
+            break
