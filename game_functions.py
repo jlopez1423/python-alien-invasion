@@ -45,7 +45,8 @@ def update_screen(ai_settings, screen, ship, squirrels, bullets):
     # Make the most recently drawn screen visible.
     pygame.display.flip()
 
-def update_bullets(bullets):
+
+def update_bullets(ai_settings, screen, dobie, squirrels, bullets):
     """Update position of bullets and get rid of old bullets"""
     # Update bullet positions
     bullets.update()
@@ -53,6 +54,18 @@ def update_bullets(bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+    # Check for any bullets that have hit squirrels
+    # If so get rid of the bullet and squirrel
+    check_bullet_collisions(ai_settings, screen, dobie, squirrels, bullets)
+
+
+def check_bullet_collisions(ai_settings, screen, dobie, squirrels, bullets):
+    collisions = pygame.sprite.groupcollide(bullets, squirrels, True, True)
+
+    if len(squirrels) == 0:
+        # Destroy existing bullets and create new fleet
+        bullets.empty()
+        create_fleet(ai_settings, screen, dobie, squirrels)
 
 
 def fire_bullet(ai_settings, screen, ship, bullets):
