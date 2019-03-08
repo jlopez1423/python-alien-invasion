@@ -6,6 +6,7 @@ from squirrel import Squirrel
 from ship import Ship
 from dobie import Dobie
 from game_stats import GameStats
+from button import Button
 
 def run_game():
     # Initialize game, settings and create a screen object.
@@ -13,7 +14,11 @@ def run_game():
     ai_settings = Settings()
 
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
-    pygame.display.set_caption("Alien Invasion")
+    pygame.display.set_caption("Squirrel Invasion")
+
+    # Make the play button
+    play_button = Button(ai_settings, screen, "Play")
+
 
     # Make a ship
     # ship = Ship(screen)
@@ -36,6 +41,6 @@ def run_game():
         dobie.update()
         gf.update_bullets(ai_settings, screen, dobie, squirrels, bullets)
         gf.update_squirrels(ai_settings, stats, screen, dobie, squirrels, bullets)
-        gf.update_screen(ai_settings, screen, dobie, squirrels, bullets)
+        gf.update_screen(ai_settings, screen, stats, dobie, squirrels, bullets, play_button)
 
 run_game()
