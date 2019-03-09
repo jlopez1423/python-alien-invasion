@@ -7,6 +7,7 @@ from ship import Ship
 from dobie import Dobie
 from game_stats import GameStats
 from button import Button
+from scoreboard import Scoreboard
 
 def run_game():
     # Initialize game, settings and create a screen object.
@@ -33,7 +34,7 @@ def run_game():
 
     # Create an instance to store game stats
     stats = GameStats(ai_settings)
-
+    sb = Scoreboard(ai_settings, screen, stats)
     # Start the main loop for the game.
     while True:
         # Watch for keyboard and mouse events.
@@ -41,6 +42,6 @@ def run_game():
         dobie.update()
         gf.update_bullets(ai_settings, screen, dobie, squirrels, bullets)
         gf.update_squirrels(ai_settings, stats, screen, dobie, squirrels, bullets)
-        gf.update_screen(ai_settings, screen, stats, dobie, squirrels, bullets, play_button)
+        gf.update_screen(ai_settings, screen, stats, sb, dobie, squirrels, bullets, play_button)
 
 run_game()

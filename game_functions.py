@@ -81,7 +81,7 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def update_screen(ai_settings, screen, stats, ship, squirrels, bullets, play_button):
+def update_screen(ai_settings, screen, stats, sb, ship, squirrels, bullets, play_button):
     # Redraw the screen during each pass through the loop.
     screen.fill(ai_settings.bg_color)
     # Redraw the bullets behind ship and aliens.
@@ -89,6 +89,9 @@ def update_screen(ai_settings, screen, stats, ship, squirrels, bullets, play_but
         bullet.draw_bullet()
     ship.blitme()
     squirrels.draw(screen)
+
+    # Draw the score information
+    sb.show_score()
 
     # Draw the play button if the game is inactive
     if not stats.game_active:
