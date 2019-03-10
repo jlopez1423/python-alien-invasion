@@ -120,6 +120,7 @@ def check_bullet_collisions(ai_settings, screen, stats, sb, dobie, squirrels, bu
         for squirrels in collisions.values():
             stats.score += ai_settings.alien_points * len(squirrels)
             sb.prep_score()
+        check_high_score(stats, sb)
 
 
     if len(squirrels) == 0:
@@ -213,3 +214,10 @@ def check_aliens_bottom(ai_settings, stats, screen, dobie, squirells, bullets):
             # Treat this the same as if the ship got hit
             ship_hit(ai_settings, stats, screen, dobie, squirells, bullets)
             break
+
+def check_high_score(stats, sb):
+    """Check to see if there's a new high score."""
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()
+
