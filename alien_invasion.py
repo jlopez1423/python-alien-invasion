@@ -38,7 +38,7 @@ def run_game():
     # Start the main loop for the game.
     while True:
         # Watch for keyboard and mouse events.
-        gf.check_events(ai_settings, screen, stats, play_button, dobie, squirrels, bullets)
+        gf.check_events(ai_settings, screen, stats, sb, play_button, dobie, squirrels, bullets)
         # if stats.game_active:
         dobie.update()
         gf.update_bullets(ai_settings, screen, stats, sb, dobie, squirrels, bullets)
